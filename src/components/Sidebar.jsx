@@ -12,8 +12,10 @@ import {
 import { PiUsersFourBold, PiStrategyFill } from "react-icons/pi";
 import { FaDumbbell } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useTranslation } from "react-i18next";
 
 function Sidebar() {
+  const { t } = useTranslation(["sidebar"]);
   const [open, setOpen] = useState(window.innerWidth >= 1024);
   const [largeOpen, setLargeOpen] = useState(true);
   useEffect(() => {
@@ -239,12 +241,12 @@ function Sidebar() {
       )}
       {window.innerWidth > 1024 && (
         <div>
-          <div className="relative overflow-y-scroll z-10">
+          <div className="relative overflow-y-scroll z-10 ">
             <div>
               <div className="absolute inset-0 overflow-hidden overflow-y-scroll">
                 <div className=" pointer-events-none fixed inset-y-0 right-0 flex max-w-72 pl-10 overflow-y-scroll">
                   <div>
-                    <div className=" pointer-events-auto relative w-screen max-w-72">
+                    <div className=" pointer-events-auto relative w-screen max-w-72 h-screen">
                       <div className="bg-white max-w-72 flex h-full flex-col overflow-y-scroll py-6 shadow-xl">
                         <div className="relative mt-6 flex-1 px-4 sm:px-6">
                           {/* Your content */}
@@ -266,7 +268,7 @@ function Sidebar() {
                                       activeNavItem === "خانه" ? "fill-red-500 " : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>خانه</div>
+                                  <div>{t("خانه")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -282,7 +284,7 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>تقویم</div>
+                                  <div>{t("تقویم")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -298,7 +300,7 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>آنالیز</div>
+                                  <div>{t("آنالیز")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -330,7 +332,9 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>مدیریت ورزشکاران</div>
+                                  <div>
+                                    {t("مدیریت")} {t("ورزشکاران")}
+                                  </div>
                                 </div>
                               </div>
                               <hr className="bg-slate-100 h-[1px] w-60 mx-auto" />
@@ -351,7 +355,9 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>مخزن تمرین ها</div>
+                                  <div>
+                                    {t("مخزن")} {t("تمرین ها")}
+                                  </div>
                                 </div>
                                 <div
                                   className={`${
@@ -367,7 +373,7 @@ function Sidebar() {
                                         : ""
                                     } " w-7 h-7 "`}
                                   />
-                                  <div>استراتژی</div>
+                                  <div>{t("استراتژی")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -383,7 +389,7 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>تنظیمات</div>
+                                  <div>{t("تنظیمات")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -401,7 +407,9 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>آخرین فعالیت ها</div>
+                                  <div>
+                                    {t("اخرین")} {t("فعالیت ها")}
+                                  </div>
                                 </div>
                               </div>
                             </div>

@@ -936,7 +936,7 @@ const Echart = () => {
   }, []);
 
   const chartOptions = {
-    backgroundColor: "#FFFFFF", // Change background color to pink
+    backgroundColor: "rgb(248 250 252)", // Change background color to pink
     title: {
       text: `نمودار (امروز: ${todayCtl})`,
       subtext: "",
