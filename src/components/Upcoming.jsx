@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { arab } from "../assets";
 import moment from "moment-jalaali";
+import { useTranslation } from "react-i18next";
+import jalaali from "jalaali-js";
 
 const getEvents = [
   {
@@ -88,7 +90,14 @@ const getEvents = [
     logo: arab,
   },
 ];
-
+const translationKeys = {
+  "قهرمانی آسیا": "Asia ChampionShip",
+  "مرحله اول لیگ بانوان": " First Stage Of Women's League",
+  "کلاس 1 جوانان": "Class1 Youth",
+  "مرحله دوم لیگ": "Second Stage Of The League",
+  "جام کلاس2": " Class2 Cup ",
+  "قهرمانی کشور": " National ChampionShip",
+};
 // here we are trying to show the persian name of months to the user
 const convertToPersian = (gregorianDate) => {
   const persianDate = moment(gregorianDate, "YYYY,MM,DD").locale("fa");
@@ -112,7 +121,9 @@ const convertToPersian = (gregorianDate) => {
 };
 
 const Upcoming = () => {
+  const [t, i18n] = useTranslation();
   const [data, setData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
@@ -122,11 +133,37 @@ const Upcoming = () => {
     fetchData();
   }, []);
 
+  // making the date international to show the user when lang is en
+  const getGregorianDateWithMonthName = (shamsiDate) => {
+    const [year, month, day] = shamsiDate.split("-").map(Number);
+    const gregorianDate = jalaali.toGregorian(year, month, day);
+    const gregorian = new Date(
+      gregorianDate.gy,
+      gregorianDate.gm - 1,
+      gregorianDate.gd
+    );
+    return gregorian.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   return (
     <>
-      <h2 className="font-bold text-xl lg:text-3xl lg:mr-72">مسابقات آینده</h2>
-      <div className="mt-10 mb-10 grid grid-cols-1 md:grid-cols-2 lg:mr-72">
+      <h2 className="font-bold text-xl lg:text-3xl rtl:lg:mr-72 lg:mr-0 lg:ml-72 rtl:lg:ml-0">
+        {t("upcoming.futureCompetitions")}
+      </h2>
+      <div className="mt-10 pb-10 grid grid-cols-1 md:grid-cols-2 rtl:lg:mr-72 lg:mr-0 lg:ml-72 rtl:lg:ml-0">
         {data.map((item) => {
+          let translationKey = translationKeys[item.name];
+          // Getting the translation using the key
+          let translatedName = t(translationKey);
+          let displayDate = item.event_date;
+          const displayName = i18n.language === "en" ? translatedName : item.name;
+          if (i18n.language === "en") {
+            displayDate = getGregorianDateWithMonthName(item.event_date);
+          } else displayDate = convertToPersian(item.event_date);
           return (
             <>
               <div className=" mt-5 ">
@@ -134,11 +171,11 @@ const Upcoming = () => {
                   key={item.id}
                   className="w-full shrink flex gap-1 items-center text-black">
                   <div className="text-lg md:max-w-[15vw] w-[22vw]">
-                    {convertToPersian(item.event_date)}
+                    {displayDate}
                   </div>
                   <img src={item.logo} className="w-5 h-5" />
                   <div className="md:max-w-[50vw] w-[35vw] text-lg tracking-wider">
-                    {item.name}
+                    {displayName}
                   </div>
                 </div>
                 <hr className="w-[50vw] mt-5 lg:w-96" />

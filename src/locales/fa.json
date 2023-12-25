@@ -1,0 +1,36 @@
+{
+    "echart" :{
+        "today" : "امروز" , 
+        "chart" : "نمودار"
+    } ,
+    "hero" :
+    {
+        "myAthletes" : "ورزشکاران من" ,
+        "weeksUntil" : "هفته تا" ,
+        "asiaChampionShip" : "قهرمانی آسیا" , 
+        "firstStageOfWomensLeague" : "مرحله اول لیگ بانوان", 
+        "class1Youth" : "کلاس 1 جوانان", 
+        "secondStageOfTheLeague" : "مرحله دوم لیگ", 
+        "nationalChampionShip" : "قهرمانی کشور",
+        "class2Cup" : "جام کلاس2"
+    }, 
+    "sidebar" : 
+    {
+        "home" : "خانه " ,
+        "calendar" : "تقویم" ,
+        "analyze" : "آنالیز" ,
+        "atp" : "ATP" ,
+        "managementOf" : "مدیریت " ,
+        "athletes" : "ورزشکاران" ,
+        "repositoryOf" : "مخزن" ,
+        "exercises" : "تمرین ها" ,
+        "strategy" : "استراتژی" ,
+        "settings" : "تنظیمات" ,
+        "latest" : "آخرین" ,
+        "activities" : "فعالیت ها" 
+    } , 
+    "upcoming" : {
+        "futureCompetitions" : "مسابقات آینده"
+    }
+
+}

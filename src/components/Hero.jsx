@@ -3,6 +3,7 @@ import { LuCalendarDays } from "react-icons/lu";
 import { MdOutlineSettings } from "react-icons/md";
 import jalaali from "jalaali-js";
 import { arab } from "../assets";
+import { useTranslation } from "react-i18next";
 // import moment from "moment-jalaali";
 // import axios from "axios";
 //
@@ -52,8 +53,16 @@ const getEvents = [
     logo: arab,
   },
 ];
-
+const translationKeys = {
+  "قهرمانی آسیا": "Asia ChampionShip",
+  "مرحله اول لیگ بانوان": " First Stage Of Women's League",
+  "کلاس 1 جوانان": "Class1 Youth",
+  "مرحله دوم لیگ": "Second Stage Of The League",
+  "قهرمانی کشور": " National ChampionShip",
+  "جام کلاس2": "Class2 Cup",
+};
 const Hero = () => {
+  const { t, i18n } = useTranslation();
   const [dropdownData, setDropdownData] = useState([]);
   // const BASE_URL = "https://vo2.ir/api";
 
@@ -97,17 +106,18 @@ const Hero = () => {
   // Function to return dropdown list items
   const renderDropdownItems = () => {
     return dropdownData.map((item) => {
-      // Convert the event_date of the current item to weeks remaining
+      // Using the translationKeys to get the translation key
+      let translationKey = translationKeys[item.name];
+      // Getting the translation using the key
+      let translatedName = t(translationKey);
       let weeksRemaining = convertToGregorianAndGetWeeks(item.event_date);
-
+      const displayName = i18n.language === "en" ? translatedName : item.name;
       // Return option element for the dropdown
       return (
         <>
           <option value={item.id} key={item.id}>
-            {weeksRemaining > 0
-              ? `${weeksRemaining} هفته تا`
-              : "رویداد به اتمام رسیده است"}{" "}
-            {item.name}
+            {weeksRemaining > 0 ? `${weeksRemaining} ` : ""} {t("hero.weeksUntil")}{" "}
+            {displayName}
           </option>
         </>
       );
@@ -143,7 +153,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="2xl:pl-16 mt-10 items-center justify-center lg:w-screen lg:flex lg:justify-end lg:pl-5 ">
+    <div className="rtl:2xl:pl-16 2xl:pl-0 mt-10 items-center justify-center lg:w-screen lg:flex lg:justify-end rtl:lg:pl-5 lg:pl-0 lg:pr-10 rtl:lg:pr-0 ">
       <div className="flex justify-between lg:justify-end items-center gap-5 m-5">
         <div>
           <MdOutlineSettings className="lg:w-7 lg:h-7 w-5 h-5 cursor-pointer " />
@@ -154,12 +164,12 @@ const Hero = () => {
         <div className="text-black flex-grow ">
           {/* {error && <p>ارور در دریافت دیتا : {error}</p>} */}
           {isLoading ? (
-            <p>در حال دریافت دیتا...</p>
+            <p>....</p>
           ) : (
             <select
               onChange={handleSelectChange}
               value={selectedValue}
-              className="bg-slate-200 shadow-lg shadow-slate-500 ring-slate-500 ring-2 rounded-xl p-1 w-[70vw] lg:w-[20vw] text-black ">
+              className="bg-slate-200 text-sm shadow-lg shadow-slate-500 ring-slate-500 ring-2 rounded-xl p-1 w-[70vw] text-center lg:w-[23vw] text-black ">
               {renderDropdownItems()}
             </select>
           )}

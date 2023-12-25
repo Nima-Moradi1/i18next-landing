@@ -15,7 +15,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useTranslation } from "react-i18next";
 
 function Sidebar() {
-  const { t } = useTranslation(["sidebar"]);
+  const { t } = useTranslation();
   const [open, setOpen] = useState(window.innerWidth >= 1024);
   const [largeOpen, setLargeOpen] = useState(true);
   useEffect(() => {
@@ -58,15 +58,15 @@ function Sidebar() {
           <Dialog as="div" className="relative z-10 overflow-auto" onClose={setOpen}>
             <div className="fixed inset-0 overflow-hidden ">
               <div className="absolute inset-0 overflow-hidden ">
-                <div className=" pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <div className=" pointer-events-none fixed inset-y-0 right-[95vw] rtl:right-0 flex max-w-full pr-10 rtl:pr-0">
                   <Transition.Child
                     as={Fragment}
                     enter="transform transition ease-in-out duration-500 sm:duration-700"
-                    enterFrom="translate-x-full"
-                    enterTo="translate-x-0"
+                    enterFrom="rtl:translate-x-full translate-x-0"
+                    enterTo="rtl:translate-x-0 translate-x-full"
                     leave="transform transition ease-in-out duration-500 sm:duration-700"
-                    leaveFrom="translate-x-0"
-                    leaveTo="translate-x-full">
+                    leaveFrom="rtl:translate-x-0 translate-x-full"
+                    leaveTo="rtl:translate-x-full translate-x-0">
                     <Dialog.Panel className=" pointer-events-auto relative w-screen max-w-md">
                       <div className="bg-white max-w-72 flex h-full flex-col overflow-y-scroll py-6 shadow-xl">
                         <div className="relative mt-6 flex-1 px-4 sm:px-6">
@@ -89,7 +89,7 @@ function Sidebar() {
                                       activeNavItem === "خانه" ? "fill-red-500 " : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>خانه</div>
+                                  <div>{t("sidebar.home")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -105,7 +105,7 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>تقویم</div>
+                                  <div>{t("sidebar.calendar")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -121,7 +121,7 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>آنالیز</div>
+                                  <div>{t("sidebar.analyze")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -135,7 +135,7 @@ function Sidebar() {
                                       activeNavItem === "ATP" ? "fill-red-500 " : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>ATP</div>
+                                  <div>{t("sidebar.atp")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -153,7 +153,10 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>مدیریت ورزشکاران</div>
+                                  <div>
+                                    {t("sidebar.managementOf")}{" "}
+                                    {t("sidebar.athletes")}
+                                  </div>
                                 </div>
                               </div>
                               <hr className="bg-slate-100 h-[1px] w-60 mx-auto" />
@@ -174,7 +177,10 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>مخزن تمرین ها</div>
+                                  <div>
+                                    {t("sidebar.repositoryOf")}{" "}
+                                    {t("sidebar.exercises")}
+                                  </div>
                                 </div>
                                 <div
                                   className={`${
@@ -190,7 +196,7 @@ function Sidebar() {
                                         : ""
                                     } " w-7 h-7 "`}
                                   />
-                                  <div>استراتژی</div>
+                                  <div>{t("sidebar.strategy")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -206,7 +212,7 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>تنظیمات</div>
+                                  <div>{t("sidebar.settings")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -224,7 +230,9 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>آخرین فعالیت ها</div>
+                                  <div>
+                                    {t("sidebar.latest")} {t("sidebar.activities")}
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -244,7 +252,7 @@ function Sidebar() {
           <div className="relative overflow-y-scroll z-10 ">
             <div>
               <div className="absolute inset-0 overflow-hidden overflow-y-scroll">
-                <div className=" pointer-events-none fixed inset-y-0 right-0 flex max-w-72 pl-10 overflow-y-scroll">
+                <div className=" pointer-events-none fixed inset-y-0 left-0 rtl:right-0 flex max-w-72 pr-10 rtl:pr-0 overflow-y-scroll">
                   <div>
                     <div className=" pointer-events-auto relative w-screen max-w-72 h-screen">
                       <div className="bg-white max-w-72 flex h-full flex-col overflow-y-scroll py-6 shadow-xl">
@@ -268,7 +276,7 @@ function Sidebar() {
                                       activeNavItem === "خانه" ? "fill-red-500 " : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>{t("خانه")}</div>
+                                  <div>{t("sidebar.home")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -284,7 +292,7 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>{t("تقویم")}</div>
+                                  <div>{t("sidebar.calendar")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -300,7 +308,7 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>{t("آنالیز")}</div>
+                                  <div>{t("sidebar.analyze")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -314,7 +322,7 @@ function Sidebar() {
                                       activeNavItem === "ATP" ? "fill-red-500 " : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>ATP</div>
+                                  <div>{t("sidebar.atp")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -333,7 +341,8 @@ function Sidebar() {
                                     } " w-6 h-6 "`}
                                   />
                                   <div>
-                                    {t("مدیریت")} {t("ورزشکاران")}
+                                    {t("sidebar.managementOf")}{" "}
+                                    {t("sidebar.athletes")}
                                   </div>
                                 </div>
                               </div>
@@ -356,7 +365,8 @@ function Sidebar() {
                                     } " w-6 h-6 "`}
                                   />
                                   <div>
-                                    {t("مخزن")} {t("تمرین ها")}
+                                    {t("sidebar.repositoryOf")}{" "}
+                                    {t("sidebar.exercises")}
                                   </div>
                                 </div>
                                 <div
@@ -373,7 +383,7 @@ function Sidebar() {
                                         : ""
                                     } " w-7 h-7 "`}
                                   />
-                                  <div>{t("استراتژی")}</div>
+                                  <div>{t("sidebar.strategy")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -389,7 +399,7 @@ function Sidebar() {
                                         : ""
                                     } " w-6 h-6 "`}
                                   />
-                                  <div>{t("تنظیمات")}</div>
+                                  <div>{t("sidebar.settings")}</div>
                                 </div>
                                 <div
                                   className={`${
@@ -408,7 +418,7 @@ function Sidebar() {
                                     } " w-6 h-6 "`}
                                   />
                                   <div>
-                                    {t("اخرین")} {t("فعالیت ها")}
+                                    {t("sidebar.latest")} {t("sidebar.activities")}
                                   </div>
                                 </div>
                               </div>
@@ -424,7 +434,7 @@ function Sidebar() {
           </div>
         </div>
       )}
-      <div className=" absolute left-0 top-0 flex pt-4 lg:hidden">
+      <div className=" absolute right-0 rtl:right-[90vw] rtl:md:right-[95vw] top-0 flex pt-4 lg:hidden">
         <button
           type="button"
           className="relative rounded-md outline-none"

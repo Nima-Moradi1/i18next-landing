@@ -1,0 +1,35 @@
+{
+    "echart" :{
+        "today" : "today" ,
+        "chart" : "chart" 
+    } ,
+    "hero" :{
+        "myAthletes" : "My Athletes" ,
+        "weeksUntil" : "Weeks to" ,
+        "asiaChampionShip" : "Asia ChampionShip" , 
+        "firstStageOfWomensLeague" : "First Stage Of Women's League", 
+        "class1Youth" : "Class1 Youth", 
+        "secondStageOfTheLeague" : "Second Stage Of The League", 
+        "nationalChampionShip" : "National ChampionShip",
+        "class2Cup" : "Class2 Cup"
+    } ,
+    "sidebar" :
+    {
+        "home" : "Home " ,
+        "calendar" : "Calendar" ,
+        "analyze" : "Analyze" ,
+        "atp" : "ATP" ,
+        "managementOf" : "Management Of " ,
+        "athletes" : "Athletes" ,
+        "repositoryOf" : "Repository Of" ,
+        "exercises" : "Exercises " ,
+        "strategy" : "Strategy" ,
+        "settings" : "Settings" ,
+        "latest" : "Latest" ,
+        "activities" : "Activities" 
+    }, 
+    "upcoming" : {
+        "futureCompetitions" : "Future Competitions"
+    }
+
+}

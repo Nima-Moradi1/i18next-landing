@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import ECharts from "echarts-for-react";
 
 const Echart = () => {
   const [data, setData] = useState([]);
   const [todayCtl, setTodayCtl] = useState(null);
+
   const today = new Date();
 
   const getChartsData = [
@@ -935,44 +936,121 @@ const Echart = () => {
     }
   }, []);
 
-  const chartOptions = {
-    backgroundColor: "rgb(248 250 252)", // Change background color to pink
-    title: {
-      text: `نمودار (امروز: ${todayCtl})`,
-      subtext: "",
-      top: "5%",
-      left: "center",
-    },
-    xAxis: {
-      type: "category",
-      data: getChartsData.map((item) => item.workoutDay),
-    },
-    yAxis: {
-      type: "value",
-      min: 85, // set the minimum value for the yAxis
-      max: 120,
-    },
-    series: [
-      {
-        type: "line",
-        data: data.map((item) => item.ctl),
-        itemStyle: {
-          color: "red",
-        },
+  const chartOptions = useMemo(
+    () => ({
+      backgroundColor: "rgb(248 250 252)", // Change background color to pink
+      title: {
+        text: `(CTL:${todayCtl})`,
+        subtext: "",
+        top: "5%",
+        left: "center",
       },
-    ],
-    grid: {
-      backgroundColor: "#ff69b4", // Change this to the desired color
-    },
-    // Set responsive option to true
-    responsive: true,
-    // Set these options to ensure the chart fits the container
-    resize: true,
-    autoResize: true,
-  };
+      xAxis: {
+        type: "category",
+        data: getChartsData.map((item) => item.workoutDay),
+      },
+      yAxis: {
+        type: "value",
+        min: 85, // set the minimum value for the yAxis
+        max: 115,
+      },
+      series: [
+        {
+          // Line for CTL over time
+          type: "line",
+          data: data.map((item) => item.ctl),
+          itemStyle: {
+            color: "orange",
+          },
+          areaStyle: {
+            // This property fills the area under the line
+            // To set a uniform color:
+            // Red color with 50% opacity
+            // Or for a gradient:
+            color: {
+              type: "linear",
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [
+                {
+                  offset: 0,
+                  color: "red", // color at 0% position
+                },
+                {
+                  offset: 1,
+                  color: "red", // color at 100% position
+                },
+              ],
+              globalCoord: false, // false by default
+            },
+          },
+        },
+
+        {
+          type: "scatter",
+          data: data.map((item) => {
+            const isToday =
+              new Date(item.workoutDay).toDateString() === today.toDateString();
+            return {
+              name: item.workoutDay,
+              value: [item.workoutDay, item.ctl],
+              itemStyle: {
+                color: isToday ? "blue" : "black", // Orange for today, blue for others
+              },
+              label: {
+                show: isToday, // Only show label for today
+                formatter: (params) => {
+                  // `params` is an object containing data for the
+                  // point, series, and other information.
+                  // Extract the CTL value and round it to two decimal places.
+                  return params.value[1].toFixed(2);
+                },
+                position: "top",
+                color: "black", // Set the label color to black
+                fontWeight: "bold", // Make the label font bold
+                fontSize: 14,
+                offset: [0, -10],
+              },
+            };
+          }),
+        },
+      ],
+      grid: {
+        backgroundColor: "#ff69b4", // Change this to the desired color
+      },
+      // Set responsive option to true
+      responsive: true,
+      // Set these options to ensure the chart fits the container
+      resize: true,
+      autoResize: true,
+    }),
+    [data]
+  );
 
   // Add annotation to point out today's CTL
   if (todayCtl) {
+    chartOptions.series.push({
+      type: "scatter",
+      data: [
+        {
+          value: [today, todayCtl], // Use the retrieved CTL value
+          symbolSize: 15,
+          itemStyle: {
+            color: "red",
+          },
+          label: {
+            show: true, // Always show the label since CTL is available
+            position: "top",
+            offset: [0, -20], // Adjust the offset to position the label properly
+            formatter: todayCtl.toFixed(2), // Display today's CTL numerically
+          },
+        },
+      ],
+    });
+
+    // Add annotation to point out today's CTL
     chartOptions.annotations = [
       {
         symbol: "none",
@@ -996,7 +1074,7 @@ const Echart = () => {
   }
 
   return (
-    <div className=" w-full h-full mt-4  overflow-scroll mx-auto lg:max-w-[82vw] lg:mr-60">
+    <div className=" w-full h-full mt-4 overflow-scroll mx-auto lg:max-w-[82vw] rtl:lg:mr-60 lg:mr-0 lg:ml-60">
       <ECharts option={chartOptions} />
     </div>
   );
